@@ -1,4 +1,4 @@
-#ifndef __TRIINT_GAUSS_H__
+#ifndef __IEQUAD_GAUSS_H__
 #error "This file should not be included directly"
 #endif
 template<> struct GaussQuadCoeff<1,0> { constexpr static double node = 5.000000000000000000e-01, weight = 1.000000000000000000e+00; };

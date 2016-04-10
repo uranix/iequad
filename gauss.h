@@ -1,7 +1,7 @@
-#ifndef __TRIINT_GAUSS_H__
-#define __TRIINT_GAUSS_H__
+#ifndef __IEQUAD_GAUSS_H__
+#define __IEQUAD_GAUSS_H__
 
-namespace triint {
+namespace iequad {
 
 template <int n, int i> struct GaussQuadCoeff;
 

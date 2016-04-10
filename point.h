@@ -1,7 +1,7 @@
-#ifndef __TRIINT_POINT_H__
-#define __TRIINT_POINT_H__
+#ifndef __IEQUAD_POINT_H__
+#define __IEQUAD_POINT_H__
 
-namespace triint {
+namespace iequad {
 
 struct point {
     const double x, y, z;

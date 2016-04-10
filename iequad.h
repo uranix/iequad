@@ -1,18 +1,18 @@
-#ifndef __TRIINT_QUAD_H__
-#define __TRIINT_QUAD_H__
+#ifndef __IEQUAD_QUAD_H__
+#define __IEQUAD_QUAD_H__
 
 #include <cmath>
 
 #include "point.h"
 #include "gauss.h"
 
-namespace triint {
+namespace iequad {
 
 template<class Kernel, int quadPoints>
 double integrate_segment(const point &pa, const point &pb, const point &y, const Kernel &f) {
     const point &rprime = pb - pa;
 
-    return triint::quad<quadPoints>([&] (const double t) {
+    return iequad::quad<quadPoints>([&] (const double t) {
         const point &p = pa * (1 - t) + pb * t;
         const point &y_x = y - p;
         double R = y_x.norm();
@@ -32,7 +32,7 @@ double integrate_segment(const point &pa, const point &pb, const point &y, const
 //  * -2 if Kernel::strongSignular = true
 //
 template<int quadPoints, class Kernel>
-double triint(
+double singular(
         const Kernel &k,
         const point &y,
         const point &p1,
@@ -47,7 +47,7 @@ double triint(
 }
 
 template<int quadPoints, class Kernel>
-double triint(
+double singular(
         const Kernel &k,
         const point &y,
         const point &p1,
@@ -62,6 +62,8 @@ double triint(
     ret += integrate_segment<Kernel, quadPoints>(p4, p1, y, k);
     return ret;
 }
+
+// TODO: add regular functions
 
 }
 

@@ -1,7 +1,7 @@
-#include "quad.h"
+#include "iequad.h"
 #include <iostream>
 
-using namespace triint;
+using namespace iequad;
 
 struct Theocaris17 {
     constexpr static bool strongSingular = true;
@@ -19,6 +19,21 @@ double exact(double x0, double y0) {
     return std::log((1 - y0 + r1) * (-1 - y0 + r2) / (-1 - y0 + r3) / (1 - y0 + r4));
 }
 
+template<class Kernel>
+void run(const Kernel &kernel, const point &y,
+        const point &p1, const point &p2, const point &p3, const point &p4)
+{
+    double e = exact(y.x, y.y);
+    std::cout << "For y = (" << y.x << ", " << y.y << ")" << std::endl;
+    std::cout << "Points : " << 1  << ", error = " << iequad::singular<1 >(kernel, y, p1, p2, p3, p4) + e << std::endl;
+    std::cout << "Points : " << 5  << ", error = " << iequad::singular<5 >(kernel, y, p1, p2, p3, p4) + e << std::endl;
+    std::cout << "Points : " << 10 << ", error = " << iequad::singular<10>(kernel, y, p1, p2, p3, p4) + e << std::endl;
+    std::cout << "Points : " << 20 << ", error = " << iequad::singular<20>(kernel, y, p1, p2, p3, p4) + e << std::endl;
+    std::cout << "Points : " << 30 << ", error = " << iequad::singular<30>(kernel, y, p1, p2, p3, p4) + e << std::endl;
+    std::cout << "Points : " << 40 << ", error = " << iequad::singular<40>(kernel, y, p1, p2, p3, p4) + e << std::endl;
+    std::cout << "Points : " << 50 << ", error = " << iequad::singular<50>(kernel, y, p1, p2, p3, p4) + e << std::endl;
+}
+
 int main() {
     const point p1( 1, -1, 0);
     const point p2( 1,  1, 0);
@@ -27,35 +42,11 @@ int main() {
 
     Theocaris17 kernel;
 
-    std::cout.precision(20);
-    const point y1(0.4, 0.1, 0);
-    double e1 = exact(y1.x, y1.y);
-    std::cout << std::endl;
-    std::cout << triint::triint<1 >(kernel, y1, p1, p2, p3, p4) + e1 << std::endl;
-    std::cout << triint::triint<5 >(kernel, y1, p1, p2, p3, p4) + e1 << std::endl;
-    std::cout << triint::triint<10>(kernel, y1, p1, p2, p3, p4) + e1 << std::endl;
-    std::cout << triint::triint<20>(kernel, y1, p1, p2, p3, p4) + e1 << std::endl;
-    std::cout << triint::triint<30>(kernel, y1, p1, p2, p3, p4) + e1 << std::endl;
-    std::cout << triint::triint<40>(kernel, y1, p1, p2, p3, p4) + e1 << std::endl;
+    run(kernel, point(.4, .1, 0), p1, p2, p3, p4);
+    run(kernel, point(.6, .2, 0), p1, p2, p3, p4);
+    run(kernel, point(.8, .4, 0), p1, p2, p3, p4);
+    run(kernel, point(.1, .0, 0), p1, p2, p3, p4);
+    run(kernel, point(.9, .0, 0), p1, p2, p3, p4);
 
-    const point y2(0.6, 0.2, 0);
-    double e2 = exact(y2.x, y2.y);
-    std::cout << std::endl;
-    std::cout << triint::triint<1 >(kernel, y2, p1, p2, p3, p4) + e2 << std::endl;
-    std::cout << triint::triint<5 >(kernel, y2, p1, p2, p3, p4) + e2 << std::endl;
-    std::cout << triint::triint<10>(kernel, y2, p1, p2, p3, p4) + e2 << std::endl;
-    std::cout << triint::triint<20>(kernel, y2, p1, p2, p3, p4) + e2 << std::endl;
-    std::cout << triint::triint<30>(kernel, y2, p1, p2, p3, p4) + e2 << std::endl;
-    std::cout << triint::triint<40>(kernel, y2, p1, p2, p3, p4) + e2 << std::endl;
-
-    const point y3(0.8, 0.4, 0);
-    double e3 = exact(y3.x, y3.y);
-    std::cout << std::endl;
-    std::cout << triint::triint<1 >(kernel, y3, p1, p2, p3, p4) + e3 << std::endl;
-    std::cout << triint::triint<5 >(kernel, y3, p1, p2, p3, p4) + e3 << std::endl;
-    std::cout << triint::triint<10>(kernel, y3, p1, p2, p3, p4) + e3 << std::endl;
-    std::cout << triint::triint<20>(kernel, y3, p1, p2, p3, p4) + e3 << std::endl;
-    std::cout << triint::triint<30>(kernel, y3, p1, p2, p3, p4) + e3 << std::endl;
-    std::cout << triint::triint<40>(kernel, y3, p1, p2, p3, p4) + e3 << std::endl;
     return 0;
 }
