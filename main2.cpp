@@ -6,7 +6,7 @@ using namespace iequad;
 struct Theocaris17 {
     constexpr static bool strongSingular = true;
     Theocaris17() { }
-    double operator()(const point y_x, const double r) const {
+    double operator()(const point &y_x, const double r) const {
         return y_x.x / (r * r * r);
     }
 };

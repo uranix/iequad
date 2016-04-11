@@ -1,12 +1,11 @@
 #include "iequad.h"
 #include <iostream>
+#include <cmath>
 
-struct DoubleLayer {
-    const iequad::point n;
-    constexpr static bool strongSingular = true;
-    DoubleLayer(const iequad::point &n) : n(n) { }
+struct Newton {
+    constexpr static bool strongSingular = false;
     double operator()(const iequad::point y_x, const double r) const {
-        return 1. / (4 * 3.14159265358979323) * y_x.dot(n) / (r * r * r);
+        return 1. / r;
     }
 };
 
@@ -16,10 +15,16 @@ int main() {
     const iequad::point p3(0, 0, 1);
     const iequad::point y(1. / 3, 1. / 3, 1. / 3);
 
-    const iequad::point &n = (p2 - p1).cross(p3 - p1);
-    DoubleLayer kernel(n * (1. / n.norm()));
+    Newton kernel;
+    const double e = std::sqrt(1.5) * std::log(7 + 4 * std::sqrt(3));
 
-    double v = iequad::singular<10>(kernel, y, p1, p2, p3);
-    std::cout << v << std::endl;
+    std::cout << "Error: " << iequad::singular<1 >(kernel, y, p1, p2, p3) - e << std::endl;
+    std::cout << "Error: " << iequad::singular<2 >(kernel, y, p1, p2, p3) - e << std::endl;
+    std::cout << "Error: " << iequad::singular<5 >(kernel, y, p1, p2, p3) - e << std::endl;
+    std::cout << "Error: " << iequad::singular<10>(kernel, y, p1, p2, p3) - e << std::endl;
+    std::cout << "Error: " << iequad::singular<20>(kernel, y, p1, p2, p3) - e << std::endl;
+    std::cout << "Error: " << iequad::singular<30>(kernel, y, p1, p2, p3) - e << std::endl;
+    std::cout << "Error: " << iequad::singular<40>(kernel, y, p1, p2, p3) - e << std::endl;
+    std::cout << "Error: " << iequad::singular<50>(kernel, y, p1, p2, p3) - e << std::endl;
     return 0;
 }
