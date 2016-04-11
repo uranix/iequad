@@ -1,4 +1,5 @@
 #include "gauss.h"
+#include "wandzuraxiao.h"
 
 #include <iostream>
 #include <cmath>
@@ -25,5 +26,10 @@ int main() {
     std::cout << iequad::quad<18>([pi] (const double x) { return std::sin(pi * x); }) * pi - 2 << std::endl;
     std::cout << iequad::quad<19>([pi] (const double x) { return std::sin(pi * x); }) * pi - 2 << std::endl;
     std::cout << iequad::quad<20>([pi] (const double x) { return std::sin(pi * x); }) * pi - 2 << std::endl;
+
+    std::cout << 0.5 * iequad::triint<7>([pi] (const double x, const double y) { return std::sin(pi * x + y); }) * (pi - 1) - std::sin(1.) << std::endl;
+    std::cout << 0.5 * iequad::triint<25>([pi] (const double x, const double y) { return std::sin(pi * x + y); }) * (pi - 1) - std::sin(1.) << std::endl;
+    std::cout << 0.5 * iequad::triint<54>([pi] (const double x, const double y) { return std::sin(pi * x + y); }) * (pi - 1) - std::sin(1.) << std::endl;
+    std::cout << 0.5 * iequad::triint<85>([pi] (const double x, const double y) { return std::sin(pi * x + y); }) * (pi - 1) - std::sin(1.) << std::endl;
     return 0;
 }

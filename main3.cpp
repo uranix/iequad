@@ -31,11 +31,11 @@ struct GenSingleLayer {
     }
 };
 
-template<class Kernel>
+template<int quadPoints, class Kernel>
 void run(const Kernel &kernel, const point &y,
         const point &p1, const point &p2, const point &p3, const point &p4)
 {
-    const Tensor &ten = iequad::regular<5 >(kernel, y, p1, p2, p3, p4);
+    const Tensor &ten = iequad::regular<quadPoints>(kernel, y, p1, p2, p3, p4);
     std::cout << "Res" << std::endl;
     std::cout << ten.xx << ", " << ten.xy << ", " << ten.xz << std::endl;
     std::cout << ten.xy << ", " << ten.yy << ", " << ten.yz << std::endl;
@@ -50,7 +50,15 @@ int main() {
 
     GenSingleLayer kernel;
 
-    run(kernel, point(0, 0, 1), p1, p2, p3, p4);
+    run<7 >(kernel, point(0, 0, 1), p1, p2, p3, p4);
+    run<25>(kernel, point(0, 0, 1), p1, p2, p3, p4);
+    run<54>(kernel, point(0, 0, 1), p1, p2, p3, p4);
+    run<85>(kernel, point(0, 0, 1), p1, p2, p3, p4);
+
+    run<7 >(kernel, point(0, 0, 5), p1, p2, p3, p4);
+    run<25>(kernel, point(0, 0, 5), p1, p2, p3, p4);
+    run<54>(kernel, point(0, 0, 5), p1, p2, p3, p4);
+    run<85>(kernel, point(0, 0, 5), p1, p2, p3, p4);
 
     return 0;
 }
