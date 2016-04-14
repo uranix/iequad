@@ -4,7 +4,8 @@
 namespace iequad {
 
 struct point {
-    const double x, y, z;
+    double x, y, z;
+    point() { }
     point(const double x, const double y, const double z) : x(x), y(y), z(z) { }
     point(const point &p) : x(p.x), y(p.y), z(p.z) { }
     double dot(const point &p) const {

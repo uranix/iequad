@@ -25,13 +25,13 @@ void run(const Kernel &kernel, const point &y,
 {
     double e = exact(y.x, y.y);
     std::cout << "For y = (" << y.x << ", " << y.y << ")" << std::endl;
-    std::cout << "Points : " << 1  << ", error = " << iequad::singular<1 >(kernel, y, p1, p2, p3, p4) + e << std::endl;
-    std::cout << "Points : " << 5  << ", error = " << iequad::singular<5 >(kernel, y, p1, p2, p3, p4) + e << std::endl;
-    std::cout << "Points : " << 10 << ", error = " << iequad::singular<10>(kernel, y, p1, p2, p3, p4) + e << std::endl;
-    std::cout << "Points : " << 20 << ", error = " << iequad::singular<20>(kernel, y, p1, p2, p3, p4) + e << std::endl;
-    std::cout << "Points : " << 30 << ", error = " << iequad::singular<30>(kernel, y, p1, p2, p3, p4) + e << std::endl;
-    std::cout << "Points : " << 40 << ", error = " << iequad::singular<40>(kernel, y, p1, p2, p3, p4) + e << std::endl;
-    std::cout << "Points : " << 50 << ", error = " << iequad::singular<50>(kernel, y, p1, p2, p3, p4) + e << std::endl;
+    std::cout << "Points : " << 1  << ", error = " << iequad::singular<1 >(kernel, y, p1, p2, p3, p4) - e << std::endl;
+    std::cout << "Points : " << 5  << ", error = " << iequad::singular<5 >(kernel, y, p1, p2, p3, p4) - e << std::endl;
+    std::cout << "Points : " << 10 << ", error = " << iequad::singular<10>(kernel, y, p1, p2, p3, p4) - e << std::endl;
+    std::cout << "Points : " << 20 << ", error = " << iequad::singular<20>(kernel, y, p1, p2, p3, p4) - e << std::endl;
+    std::cout << "Points : " << 30 << ", error = " << iequad::singular<30>(kernel, y, p1, p2, p3, p4) - e << std::endl;
+    std::cout << "Points : " << 40 << ", error = " << iequad::singular<40>(kernel, y, p1, p2, p3, p4) - e << std::endl;
+    std::cout << "Points : " << 50 << ", error = " << iequad::singular<50>(kernel, y, p1, p2, p3, p4) - e << std::endl;
 }
 
 int main() {
