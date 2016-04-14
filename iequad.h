@@ -2,6 +2,7 @@
 #define __IEQUAD_QUAD_H__
 
 #include <cmath>
+#include <type_traits>
 
 #include "point.h"
 #include "gauss.h"
@@ -114,6 +115,36 @@ auto regular(
 {
     typedef decltype(k(point(0, 0, 0), 0)) Ret;
     return chew_regular<Ret, quadPoints>(k, x, p1, p2, pts...);
+}
+
+// Non-decltype, non-variadic version for cython
+template<typename RetType, int quadPoints, class Kernel>
+RetType singular_tri(
+        const Kernel &k,
+        const point &x,
+        const point &p1,
+        const point &p2,
+        const point &p3
+    )
+{
+    typedef decltype(k(point(0, 0, 0), 0)) Ret;
+    static_assert(std::is_same<Ret, RetType>::value, "RetType does not match Kernel::operator() return type");
+    return singular<quadPoints>(k, x, p1, p2, p3);
+}
+
+// Non-decltype, non-variadic version for cython
+template<typename RetType, int quadPoints, class Kernel>
+RetType regular_tri(
+        const Kernel &k,
+        const point &x,
+        const point &p1,
+        const point &p2,
+        const point &p3
+    )
+{
+    typedef decltype(k(point(0, 0, 0), 0)) Ret;
+    static_assert(std::is_same<Ret, RetType>::value, "RetType does not match Kernel::operator() return type");
+    return regular<quadPoints>(k, x, p1, p2, p3);
 }
 
 }
