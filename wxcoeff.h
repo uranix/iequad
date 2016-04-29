@@ -3,6 +3,15 @@
 #endif
 
 template <class Function, typename Ret>
+struct TriQuad<1, Function, Ret> {
+    static Ret eval(const Function &f) {
+        return
+            TriQuadHelper<Function, Ret>::pointA(1, f);
+
+    }
+};
+
+template <class Function, typename Ret>
 struct TriQuad<7, Function, Ret> {
     static Ret eval(const Function &f) {
         return
